@@ -1,0 +1,22 @@
+mixed-port: 7890
+bind-address: '*'
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+proxies:
+  - {name: Lmc-Private, server:  frp.14122.xyz, port: 7605,  type: ss, cipher: aes-256-gcm , password: lmclmc
+     }
+proxy-groups:
+  - name:  GoTo-Lmc
+    type: select
+    proxies:
+      - Lmc-Private
+rules:
+ - IP-CIDR,114.213.0.0/16, GoTo-Lmc
+ - IP-CIDR,121.251.19.0/24, GoTo-Lmc
+ - IP-CIDR,222.195.7.0/24, GoTo-Lmc
+ - IP-CIDR,210.45.33.140/22, GoTo-Lmc
+ - IP-CIDR,120.55.44.255/22, GoTo-Lmc
+ - DOMAIN-KEYWORD,hfut, GoTo-Lmc
+ - MATCH,DIRECT
